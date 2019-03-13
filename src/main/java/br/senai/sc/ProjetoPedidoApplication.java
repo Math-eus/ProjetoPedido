@@ -11,27 +11,35 @@ import br.senai.sc.repositories.CategoriaRepository;
 import br.senai.sc.repositories.ProdutoRepository;
 
 @SpringBootApplication
-public class ProjetoPedidoApplication implements CommandLineRunner{
+public class ProjetoPedidoApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoPedidoApplication.class, args);
 	}
 
 	@Autowired
-	private CategoriaRepository repo1;
-	private ProdutoRepository repo2;
-	
+	private CategoriaRepository categoriaRepository;
+
+	@Autowired
+	private ProdutoRepository produtoRepository;
+
 	@Override
 	public void run(String... args) throws Exception {
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
-		Produto pro1 = new Produto(null, "Mouse", 19.99);
-		Produto pro2 = new Produto(null, "Teclado", 14.99);
 		
-		repo1.save(cat1);
-		repo1.save(cat2);
-		repo2.save(pro1);
-		repo2.save(pro2);
+		Produto p1 = new Produto(null, "Computador", 2000.00);
+		p1.getCategorias().add(cat1);
+		cat1.getProdutos().add(p1);
+		
+		Produto p2 = new Produto(null, "Impressora", 800.00);
+
+		categoriaRepository.save(cat1);
+		categoriaRepository.save(cat2);
+
+		produtoRepository.save(p1);
+		produtoRepository.save(p2);
+
 	}
 
 }
