@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import br.senai.sc.domain.Categoria;
 import br.senai.sc.domain.Produto;
 import br.senai.sc.repositories.CategoriaRepository;
+import br.senai.sc.repositories.CidadeRepository;
+import br.senai.sc.repositories.EstadoRepository;
 import br.senai.sc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -23,15 +25,21 @@ public class ProjetoPedidoApplication implements CommandLineRunner {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
+	@Autowired
+	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
+
 	@Override
 	public void run(String... args) throws Exception {
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
-		
+
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		p1.getCategorias().add(cat1);
 		cat1.getProdutos().add(p1);
-		
+
 		Produto p2 = new Produto(null, "Impressora", 800.00);
 
 		categoriaRepository.save(cat1);
