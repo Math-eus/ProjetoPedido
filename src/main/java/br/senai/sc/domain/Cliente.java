@@ -19,13 +19,14 @@ import br.senai.sc.domain.enums.TipoCliente;
 @Entity
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer Id;
-	private String name;
+	private Integer id;
+	private String nome;
 	private String email;
 	private String cpfOuCnpj;
-	private TipoCliente tipo;
+	private Integer tipo;
 
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -38,28 +39,29 @@ public class Cliente implements Serializable {
 
 	}
 
-	public Cliente(Integer id, String name, String email, String cpfOuCnpj, TipoCliente tipo) {
-		Id = id;
-		this.name = name;
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+		super();
+		this.id = id;
+		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo;
+		this.tipo = tipo.getCodigo();
 	}
 
 	public Integer getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getEmail() {
@@ -79,11 +81,11 @@ public class Cliente implements Serializable {
 	}
 
 	public TipoCliente getTipo() {
-		return tipo;
+		return TipoCliente.toEnum(tipo);
 	}
 
 	public void setTipo(TipoCliente tipo) {
-		this.tipo = tipo;
+		this.tipo = tipo.getCodigo();
 	}
 
 	public List<Endereco> getEnderecos() {
@@ -106,7 +108,7 @@ public class Cliente implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -119,10 +121,10 @@ public class Cliente implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		if (Id == null) {
-			if (other.Id != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!Id.equals(other.Id))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

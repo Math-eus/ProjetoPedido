@@ -18,6 +18,7 @@ public class Estado implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+
 	@OneToMany(mappedBy = "estado")
 	private List<Cidade> cidades = new ArrayList<Cidade>();
 
@@ -26,6 +27,7 @@ public class Estado implements Serializable {
 	}
 
 	public Estado(Integer id, String nome) {
+		super();
 		this.id = id;
 		this.nome = nome;
 	}
